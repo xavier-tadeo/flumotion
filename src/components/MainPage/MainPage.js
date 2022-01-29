@@ -20,8 +20,13 @@ export const MainPage = () => {
     const response = await fetch(url);
     const { results } = await response.json();
     const data = results[0];
-    const { artworkUrl100 } = data;
-    setSongImage(artworkUrl100);
+    if (data) {
+      const { artworkUrl100 } = data;
+      setSongImage(artworkUrl100);
+    }
+    setSongImage(
+      "https://cmsprod.diamondresorts.com/sites/default/files/image-not-found.jpg"
+    );
   };
 
   const handleSubmit = (evt) => {
