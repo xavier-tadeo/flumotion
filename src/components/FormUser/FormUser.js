@@ -1,14 +1,4 @@
-import { useUserForm } from "../../hooks/useUserForm";
-
-export const FormUser = () => {
-  const { handleChange, inputValue, initialValue, setInputValue } =
-    useUserForm();
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    setInputValue(initialValue);
-  };
-
+export const FormUser = ({ handleSubmit, handleChange, inputValue }) => {
   return (
     <div className="d-flex justify-content-center">
       <form className="container-form row" onSubmit={handleSubmit}>
