@@ -4,20 +4,15 @@ import { Header } from "../Header/Header";
 import { SongImage } from "../SongImage/SongImage";
 
 export const MainPage = () => {
+  const [songImage, setSongImage] = useState("");
+  const [isDisable, setIsDisable] = useState(true);
+
   const initialValue = {
     title: "",
     author: "",
   };
 
   const [inputValue, setInputValue] = useState(initialValue);
-  const [songImage, setSongImage] = useState("");
-
-  const handleChange = (evt) => {
-    setInputValue({
-      ...inputValue,
-      [evt.target.id]: evt.target.value,
-    });
-  };
 
   const fetchApi = async (inputValue) => {
     const { author, title } = inputValue;
@@ -25,15 +20,20 @@ export const MainPage = () => {
     const response = await fetch(url);
     const { results } = await response.json();
     const data = results[0];
-    const { artworkUrl100 } = data;
-    console.log(artworkUrl100);
-    setSongImage(artworkUrl100);
+    if (data) {
+      const { artworkUrl100 } = data;
+      setSongImage(artworkUrl100);
+    }
+    setSongImage(
+      "https://cmsprod.diamondresorts.com/sites/default/files/image-not-found.jpg"
+    );
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     fetchApi(inputValue);
     setInputValue(initialValue);
+    setIsDisable(true);
   };
   return (
     <div>
@@ -41,10 +41,12 @@ export const MainPage = () => {
       <Header />
       <FormUser
         handleSubmit={handleSubmit}
-        handleChange={handleChange}
+        setInputValue={setInputValue}
         inputValue={inputValue}
+        isDisable={isDisable}
+        setIsDisable={setIsDisable}
       />
-      {songImage !== "" && <SongImage songImage={songImage} />}
+      {songImage && <SongImage songImage={songImage} />}
     </div>
   );
 };
