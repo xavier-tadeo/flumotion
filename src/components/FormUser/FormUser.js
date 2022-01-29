@@ -1,4 +1,23 @@
-export const FormUser = ({ handleSubmit, handleChange, inputValue }) => {
+export const FormUser = ({
+  handleSubmit,
+  setInputValue,
+  inputValue,
+  isDisable,
+  setIsDisable,
+}) => {
+  const handleChange = (evt) => {
+    setInputValue({
+      ...inputValue,
+      [evt.target.id]: evt.target.value,
+    });
+    checkForm();
+  };
+
+  const checkForm = () => {
+    if (inputValue.author && inputValue.title) {
+      setIsDisable(false);
+    }
+  };
   return (
     <div className="d-flex justify-content-center">
       <form className="container-form row" onSubmit={handleSubmit}>
@@ -28,7 +47,9 @@ export const FormUser = ({ handleSubmit, handleChange, inputValue }) => {
           onChange={handleChange}
         />
         <div className="d-grid gap-2 col-4 mx-auto">
-          <button className="btn btn-success mt-4 btn-sm ">Add</button>
+          <button className="btn btn-success mt-4 btn-sm" disabled={isDisable}>
+            Add
+          </button>
         </div>
       </form>
     </div>
