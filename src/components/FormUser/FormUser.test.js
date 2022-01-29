@@ -1,16 +1,31 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { FormUser } from "./FormUser";
 
 describe("Given a Form component", () => {
+  const handleSubmit = jest.fn();
+  const inputValue = {
+    author: "Extremo",
+    title: "Extremo Duro",
+  };
+  const isDisable = true;
+  const setInputValue = jest.fn();
+  const setIsDisable = jest.fn();
+
   describe("When it render", () => {
     test("Then should a rendered a two inputs two label and one button", () => {
-      render(<FormUser />);
+      render(
+        <FormUser
+          handleSubmit={handleSubmit}
+          inputValue={inputValue}
+          isDisable={isDisable}
+          setInputValue={setInputValue}
+          setIsDisable={setIsDisable}
+        />
+      );
 
       const title = screen.getByLabelText("Title");
       const author = screen.getByLabelText("Author");
       const addButton = screen.getByRole("button");
-      userEvent.click(addButton);
 
       expect(title).toBeInTheDocument();
       expect(author).toBeInTheDocument();
@@ -19,15 +34,14 @@ describe("Given a Form component", () => {
   });
   describe("When the user type in inputs", () => {
     test("Then it should change a value", () => {
-      render(<FormUser />);
-
-      userEvent.type(
-        screen.getByRole("textbox", { name: "Title" }),
-        `Extremo Duro`
-      );
-      userEvent.type(
-        screen.getByRole("textbox", { name: "Author" }),
-        `Extremo`
+      render(
+        <FormUser
+          handleSubmit={handleSubmit}
+          inputValue={inputValue}
+          isDisable={isDisable}
+          setInputValue={setInputValue}
+          setIsDisable={setIsDisable}
+        />
       );
 
       expect(screen.getByRole("textbox", { name: "Title" })).toHaveValue(
