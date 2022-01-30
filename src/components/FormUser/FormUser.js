@@ -30,7 +30,7 @@ export const FormUser = ({
           type="text"
           id="title"
           className="form-control text-center"
-          placeholder="Type to search..."
+          placeholder="Type to search title"
           value={inputValue.title}
           onChange={handleChange}
         />
@@ -44,7 +44,7 @@ export const FormUser = ({
           type="text"
           id="author"
           className="form-control text-center"
-          placeholder="Type to search..."
+          placeholder="Type to search author"
           value={inputValue.author}
           onChange={handleChange}
         />
