@@ -19,14 +19,21 @@ export const MainPage = () => {
     const url = `https://itunes.apple.com/search?term=${title}+${author}`;
     const response = await fetch(url);
     const { results } = await response.json();
-    const data = results[0];
+    const artistName = results.filter(
+      (result) => result.artistName.toUpperCase() === author.toUpperCase()
+    );
+    const trackName = artistName.filter(
+      (track) => track.trackName.toUpperCase() === title.toUpperCase()
+    );
+    const data = trackName[0];
     if (data) {
       const { artworkUrl100 } = data;
       setSongImage(artworkUrl100);
+    } else {
+      setSongImage(
+        "https://cmsprod.diamondresorts.com/sites/default/files/image-not-found.jpg"
+      );
     }
-    setSongImage(
-      "https://cmsprod.diamondresorts.com/sites/default/files/image-not-found.jpg"
-    );
   };
 
   const handleSubmit = (evt) => {
