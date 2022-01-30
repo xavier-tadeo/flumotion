@@ -1,3 +1,5 @@
+import PropType from "prop-types";
+
 export const FormUser = ({
   handleSubmit,
   setInputValue,
@@ -54,4 +56,12 @@ export const FormUser = ({
       </form>
     </div>
   );
+};
+
+FormUser.propType = {
+  handleSubmit: PropType.func.isRequired,
+  setInputValue: PropType.func.isRequired,
+  inputValue: PropType.object.isRequired,
+  isDisable: PropType.bool.isRequired,
+  setIsDisable: PropType.func.isRequired,
 };
